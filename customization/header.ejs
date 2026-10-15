@@ -1,0 +1,15 @@
+<% if (page.__index) { %>
+  <div class="journal-hero" id="banner">
+    <%- partial('_partials/header/navigation') %>
+    <div class="hero-shade"></div>
+    <div class="hero-content journal-container">
+      <div class="hero-eyebrow"><span></span> SECRET3694'S JOURNAL</div>
+      <h1>把日子写成诗，<br>把热爱留在这里<span class="hero-period">。</span></h1>
+      <p>记录技术的探索，也收藏生活的微光。<br class="mobile-break">在平凡的日常里，保持一点好奇。</p>
+      <a class="hero-button" href="#journal">开始阅读 <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="hero-bottom journal-container"><span><i class="location-mark" aria-hidden="true"></i> 心有所往，山海皆可平</span><a href="#journal">向下探索 <span aria-hidden="true">↓</span></a></div>
+  </div>
+<% } else { %>
+  <%- partial('_partials/header.ejs') %>
+<% } %>

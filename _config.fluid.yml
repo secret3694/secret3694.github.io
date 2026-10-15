@@ -1,0 +1,145 @@
+# Fluid 按官方方式安装；这里只覆盖需要定制的选项。
+favicon: /img/favicon.svg
+apple_touch_icon: /img/avatar.svg
+navbar:
+  blog_title: 拾光手记
+  ground_glass:
+    enable: true
+    px: 12
+    alpha: 0.92
+  menu:
+    - { key: home, link: /, icon: 'iconfont icon-home-fill' }
+    - { key: archive, link: /archives/, icon: 'iconfont icon-archive-fill' }
+    - { key: category, link: /categories/, icon: 'iconfont icon-category-fill' }
+    - { key: tag, link: /tags/, icon: 'iconfont icon-tags-fill' }
+    - { key: about, link: /about/, icon: 'iconfont icon-user-fill' }
+dark_mode:
+  enable: true
+  default: light
+font:
+  font_size: 16px
+  font_family: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif'
+  letter_spacing: 0.01em
+color:
+  body_bg_color: '#f5f6f3'
+  body_bg_color_dark: '#131c20'
+  navbar_bg_color: '#193e39'
+  navbar_bg_color_dark: '#19282b'
+  text_color: '#263d38'
+  text_color_dark: '#d9e4df'
+  sec_text_color: '#7a8580'
+  sec_text_color_dark: '#a2b4ac'
+  board_color: '#ffffff'
+  board_color_dark: '#1e2a2c'
+  post_link_color: '#257969'
+  post_link_color_dark: '#7dc4af'
+  link_hover_color: '#257969'
+  link_hover_color_dark: '#7dc4af'
+  line_color: '#e7ece6'
+  line_color_dark: '#354340'
+custom_css: /css/journal.css
+custom_js: /js/journal.js
+iconfont: /vendor/icons/social-icons.css
+banner:
+  parallax: false
+  width_height_ratio: 0
+index:
+  banner_img: /img/hero-lake.jpg
+  banner_img_height: 76
+  banner_mask_alpha: 0.3
+  slogan:
+    enable: true
+    text: 把日子写成诗，把热爱留在这里。
+post:
+  banner_img: /img/hero-lake.jpg
+  banner_img_height: 50
+  banner_mask_alpha: 0.48
+  default_index_img: /img/forest.jpg
+  meta:
+    author:
+      enable: true
+    date:
+      enable: true
+      format: YYYY年MM月DD日
+    min2read:
+      enable: true
+      awl: 2
+      wpm: 180
+  toc:
+    enable: true
+    expand_all: true
+  comments:
+    enable: false
+  image_zoom:
+    enable: false
+archive:
+  banner_img: /img/hero-lake.jpg
+  banner_img_height: 42
+  banner_mask_alpha: 0.5
+category:
+  banner_img: /img/forest.jpg
+  banner_img_height: 42
+  banner_mask_alpha: 0.5
+tag:
+  banner_img: /img/ocean.jpg
+  banner_img_height: 42
+  banner_mask_alpha: 0.5
+  tagcloud:
+    min_font: 16
+    max_font: 28
+    start_color: '#73928a'
+    end_color: '#206a5c'
+about:
+  banner_img: /img/hero-lake.jpg
+  banner_img_height: 42
+  banner_mask_alpha: 0.5
+  avatar: /img/avatar.svg
+  name: secret3694
+  intro: 记录生活，探索技术，保持好奇。
+  icons:
+    - { class: 'iconfont icon-github-fill', link: 'https://github.com/secret3694', tip: GitHub }
+    - { class: 'iconfont icon-rss', link: /atom.xml, tip: RSS }
+page:
+  banner_img: /img/hero-lake.jpg
+  banner_img_height: 42
+  banner_mask_alpha: 0.5
+page404:
+  banner_img: /img/hero-lake.jpg
+  banner_img_height: 70
+  banner_mask_alpha: 0.5
+  redirect_delay: 10000
+links:
+  enable: false
+search:
+  enable: true
+  path: /local-search.xml
+  generate_path: local-search.xml
+  field: post
+  content: true
+fun_features:
+  typing:
+    enable: false
+  anchorjs:
+    enable: true
+  progressbar:
+    enable: false
+lazyload:
+  enable: true
+  onlypost: true
+scroll_down_arrow:
+  enable: false
+footer:
+  statistics:
+    enable: false
+web_analytics:
+  enable: false
+canonical:
+  enable: true
+static_prefix:
+  jquery: /vendor/jquery/
+  bootstrap: /vendor/bootstrap/
+  anchor: /vendor/anchor/
+  github_markdown: /vendor/github-markdown/
+  hint: /vendor/hint/
+  tocbot: /vendor/tocbot/
+  clipboard: /vendor/clipboard/

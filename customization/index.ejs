@@ -1,0 +1,53 @@
+<%
+  page.banner_img = theme.index.banner_img;
+  page.banner_img_height = theme.index.banner_img_height;
+  page.banner_mask_alpha = theme.index.banner_mask_alpha;
+  var allCategories = site.categories.sort('name').toArray();
+  var allTags = site.tags.sort('length', -1).limit(10).toArray();
+%>
+<div class="journal-container journal-home" id="journal">
+  <section class="journal-intro" aria-labelledby="journal-title">
+    <div><span class="section-eyebrow">THE LATEST STORIES</span><h2 id="journal-title">最近的记录<span> / JOURNAL</span></h2><p>一些思考，一些发现，还有正在发生的生活。</p></div>
+    <a class="subtle-link" href="<%= url_for('/archives/') %>">所有文章 <span aria-hidden="true">↗</span></a>
+  </section>
+  <div class="journal-columns">
+    <section class="journal-feed" aria-label="博客文章">
+      <div class="feed-toolbar">
+        <div class="category-filters" aria-label="按分类筛选当前页文章">
+          <button type="button" class="filter-chip active" data-filter="all" aria-pressed="true">全部 <span><%= page.posts.length %></span></button>
+          <% allCategories.forEach(function(category) { %><button type="button" class="filter-chip" data-filter="<%= category.name %>" aria-pressed="false"><%= category.name %></button><% }); %>
+        </div>
+        <span class="feed-count" aria-live="polite"><span id="visible-count"><%= page.posts.length %></span> 篇记录</span>
+      </div>
+      <div class="post-grid">
+        <% page.posts.each(function(post) { var category = post.categories.first(); %>
+          <article class="story-card" data-categories="<%= JSON.stringify(post.categories.map(c => c.name)) %>">
+            <a class="story-cover" href="<%= url_for(post.path) %>" tabindex="-1" aria-hidden="true"><img src="<%= url_for(post.index_img || theme.post.default_index_img) %>" alt="" loading="lazy" width="800" height="500"><span class="cover-category"><%= category ? category.name : '随笔' %></span><span class="cover-arrow" aria-hidden="true">↗</span></a>
+            <div class="story-content">
+              <div class="story-meta"><time datetime="<%= date(post.date, 'YYYY-MM-DD') %>"><%= date(post.date, 'YYYY.MM.DD') %></time><span>·</span><span><%= min2read(post, theme.post.meta.min2read) %> 分钟阅读</span><% if (post.demo) { %><span class="demo-badge">示例</span><% } %></div>
+              <h3><a href="<%= url_for(post.path) %>"><%= post.title %></a></h3>
+              <p><%= strip_html(post.description || post.excerpt || post.content).substring(0, 100).trim() %></p>
+              <div class="story-tags"><% post.tags.limit(2).each(function(tag) { %><a href="<%= url_for(tag.path) %>"># <%= tag.name %></a><% }); %></div>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+      <p class="filter-empty" hidden>这个分类在当前页还没有文章。<a href="<%= url_for('/categories/') %>">查看完整分类 →</a></p>
+      <% if (page.total > 1) { %><div class="journal-pagination"><%- partial('_partials/paginator') %></div><% } %>
+      <div class="feed-end"><span></span><p>慢慢记录，来日方长 <i aria-hidden="true">✳</i></p><span></span></div>
+    </section>
+    <aside class="journal-sidebar" aria-label="作者与导航">
+      <section class="profile-panel">
+        <div class="profile-topline"><span class="profile-status"><i></i> 保持好奇，持续记录</span><span aria-hidden="true">✳</span></div>
+        <img class="profile-avatar" src="<%= url_for('/img/avatar.svg') %>" alt="secret3694 的头像" width="72" height="72">
+        <h2>你好，我是<br><strong>secret3694<span> ↗</span></strong></h2>
+        <p>这里是我的一小片自留地。<br>写代码，也写生活；<br>在输入与输出之间，慢慢生长。</p>
+        <div class="profile-stats"><a href="<%= url_for('/archives/') %>"><strong><%= site.posts.length %></strong><span>文章</span></a><a href="<%= url_for('/categories/') %>"><strong><%= site.categories.length %></strong><span>分类</span></a><a href="<%= url_for('/tags/') %>"><strong><%= site.tags.length %></strong><span>标签</span></a></div>
+        <div class="profile-links"><a href="https://github.com/secret3694" target="_blank" rel="noopener noreferrer"><i class="iconfont icon-github-fill" aria-hidden="true"></i> GitHub <span aria-hidden="true">↗</span></a><a href="<%= url_for('/about/') %>">更多关于我 <span aria-hidden="true">→</span></a></div>
+      </section>
+      <section class="topics-panel"><div class="panel-title"><h2>循着兴趣，随处逛逛</h2><span aria-hidden="true">⌁</span></div><div class="topic-links"><% allTags.forEach(function(tag) { %><a href="<%= url_for(tag.path) %>"># <%= tag.name %><small><%= tag.length %></small></a><% }); %></div></section>
+      <section class="quote-panel"><span class="quote-mark" aria-hidden="true">“</span><p>生活的意义，<br>藏在那些愿意<br>认真对待的瞬间里。</p><div>ONE LITTLE THOUGHT</div><span class="quote-flower" aria-hidden="true">✳</span></section>
+      <a class="rss-link" href="<%= url_for('/atom.xml') %>"><span><i class="iconfont icon-rss" aria-hidden="true"></i> 订阅这份小小的记录</span><span aria-hidden="true">↗</span></a>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<% var bannerHeight = parseFloat(page.banner_img_height || theme.index.banner_img_height); %>
+<!DOCTYPE html>
+<html lang="<%= config.language %>" data-default-color-scheme="<%= theme.dark_mode.default %>">
+<%- partial('_partials/head.ejs') %>
+<body class="<%= page.__index ? 'page-home' : (is_post() ? 'page-post' : 'page-inner') %>">
+  <a class="skip-link" href="#main-content">跳到正文</a>
+  <%- inject_point('bodyBegin') %>
+  <header><%- inject_point('header') %></header>
+  <main id="main-content">
+    <% if (page.__index || is_post() || page.layout === '404') { %>
+      <%- body %>
+    <% } else { %>
+      <div class="container nopadding-x-md">
+        <div id="board">
+          <% if (page.layout === 'about') { %>
+            <div class="about-avatar"><img src="<%= url_for(theme.about.avatar) %>" class="img-fluid" alt="secret3694 的头像"></div>
+          <% } %>
+          <div class="container"><div class="row"><div class="col-12 col-md-10 m-auto"><%- body %></div></div></div>
+        </div>
+      </div>
+    <% } %>
+    <% if (theme.scroll_top_arrow.enable) { %>
+      <a id="scroll-top-button" aria-label="返回顶部" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+    <% } %>
+    <% if (theme.search.enable) { %><%- partial('_partials/search.ejs') %><% } %>
+  </main>
+  <footer><%- inject_point('footer') %></footer>
+  <%- partial('_partials/scripts.ejs') %>
+  <%- inject_point('bodyEnd') %>
+  <noscript><div class="noscript-warning">文章可正常阅读；搜索、筛选和主题切换需要启用 JavaScript。</div></noscript>
+</body>
+</html>

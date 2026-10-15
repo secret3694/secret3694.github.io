@@ -1,0 +1,79 @@
+# 站点基本资料
+title: 拾光手记
+subtitle: 记录生活，探索技术，保持好奇。
+description: secret3694 的个人博客，在这里记录技术探索、学习笔记，以及生活中值得珍藏的微光。
+keywords: [个人博客, Hexo, Fluid, 技术, 生活, 学习笔记]
+author: secret3694
+language: zh-CN
+timezone: Asia/Shanghai
+url: https://secret3694.github.io
+root: /
+permalink: posts/:title/
+pretty_urls:
+  trailing_index: false
+  trailing_html: false
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+skip_render: [vendor/**, img/**, robots.txt]
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: [secret3694.github.io]
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: false
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: '  '
+  wrap: true
+  hljs: false
+prismjs:
+  enable: false
+default_category: 随笔
+date_format: YYYY.MM.DD
+time_format: HH:mm:ss
+updated_option: date
+per_page: 9
+pagination_dir: page
+index_generator:
+  path: ''
+  per_page: 9
+  order_by: -date
+archive_generator:
+  per_page: 20
+  yearly: true
+  monthly: true
+category_generator:
+  per_page: 20
+tag_generator:
+  per_page: 20
+theme: fluid
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  content: false
+sitemap:
+  path: sitemap.xml
+  rel: false
+search:
+  path: local-search.xml
+  field: post
+  content: true
+  format: html
+marked:
+  prependRoot: true
+  postAsset: false
+deploy:
+  type: ''
