@@ -39,7 +39,7 @@
     <aside class="journal-sidebar" aria-label="作者与导航">
       <section class="profile-panel">
         <div class="profile-topline"><span class="profile-status"><i></i> 保持好奇，持续记录</span><span aria-hidden="true">✳</span></div>
-        <img class="profile-avatar" src="<%= url_for('/img/avatar.svg') %>" alt="secret3694 的头像" width="72" height="72">
+        <img class="profile-avatar" src="<%= url_for(theme.about.avatar) %>" alt="secret3694 的头像" width="72" height="72">
         <h2>你好，我是<br><strong>secret3694<span> ↗</span></strong></h2>
         <p>这里是我的一小片自留地。<br>写代码，也写生活；<br>在输入与输出之间，慢慢生长。</p>
         <div class="profile-stats"><a href="<%= url_for('/archives/') %>"><strong><%= site.posts.length %></strong><span>文章</span></a><a href="<%= url_for('/categories/') %>"><strong><%= site.categories.length %></strong><span>分类</span></a><a href="<%= url_for('/tags/') %>"><strong><%= site.tags.length %></strong><span>标签</span></a></div>

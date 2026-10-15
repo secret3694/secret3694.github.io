@@ -76,7 +76,8 @@ banner_img: /img/mountain.jpg
 | 首页与侧栏的文字布局 | `customization/index.ejs` |
 | 首页封面标题 | `customization/header.ejs` |
 | 页脚文案 | `customization/footer.ejs` |
-| 头像与网站图标 | `source/img/avatar.svg`、`favicon.svg` |
+| 博客头像 | `_config.fluid.yml` 中的 `about.avatar`，当前图片为 `source/img/github-avatar.png` |
+| 网站图标 | `source/img/favicon.svg` |
 | 样式与分类交互 | `source/css/journal.css`、`source/js/journal.js` |
 
 替换封面时，建议把压缩后的 JPG/WebP 放入 `source/img/`。首页大图用 `hero-lake.jpg`；文章封面可在 Front Matter 独立设置。首页文字与 Fluid 主题配置相互独立。
