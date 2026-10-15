@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>你好，世界。我的博客从这里开始</title>
+    <link href="/posts/hello-world/"/>
+    <url>/posts/hello-world/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-info">            <p>这是一篇示例文章，用来展示博客的排版。发布自己的内容时，可以直接修改或删除这个文件。</p>           </div><p>有些想法在脑海里停留很久，如果没有被写下来，就会慢慢消散。于是有了这个博客：一个可以慢慢说话、认真记录的小角落。</p><span id="more"></span><h2 id="为什么开始写博客"><a href="#为什么开始写博客" class="headerlink" title="为什么开始写博客"></a>为什么开始写博客</h2><p>记录是一种很轻盈的坚持。学会一个新工具、读到一句喜欢的话、在散步时突然想到一个问题，都可以成为一篇文章的起点。</p><p>我希望这里可以容纳不那么完整的思考。先把今天的发现写下来，等未来再次回看，才能知道自己走过了多远。</p><h2 id="想要留下什么"><a href="#想要留下什么" class="headerlink" title="想要留下什么"></a>想要留下什么</h2><ul><li>把一个问题解决之后，整理清楚它为什么发生。</li><li>学到新知识时，用自己的话再讲一遍。</li><li>给生活里值得记住的瞬间留一点位置。</li></ul><blockquote><p>不必等到准备得足够好，开始本身就有意义。</p></blockquote><h2 id="从一篇小文章开始"><a href="#从一篇小文章开始" class="headerlink" title="从一篇小文章开始"></a>从一篇小文章开始</h2><p>写作不需要每次都宏大。一个清晰的问题，一段真实的经历，一个终于被理解的概念，就已经足够。</p><p>愿这里的每一篇记录，都能成为未来回望时的一盏小灯。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>生活碎片</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>随笔</tag>
+      
+      <tag>博客</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>用 Hexo 和 Fluid，搭建自己的数字花园</title>
+    <link href="/posts/hexo-fluid-guide/"/>
+    <url>/posts/hexo-fluid-guide/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-info">            <p>这是可替换的示例教程。下面的命令适用于本项目，内容依据 Hexo 与 Fluid 官方文档整理。</p>           </div><p>Hexo 负责把 Markdown 文章变成静态网页，Fluid 负责页面呈现，GitHub Pages 负责托管。三者配合，就能把注意力留给写作。</p><span id="more"></span><h2 id="本地启动"><a href="#本地启动" class="headerlink" title="本地启动"></a>本地启动</h2><p>先安装 Node.js 24 LTS，在博客根目录打开终端：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g hexo-cli<br>npm ci<br>hexo clean<br>hexo g<br>hexo s<br></code></pre></td></tr></table></figure><p>打开终端提示的 <code>http://127.0.0.1:4000</code>，即可查看博客。修改文章后刷新页面就能看到变化。</p><h2 id="写一篇文章"><a href="#写一篇文章" class="headerlink" title="写一篇文章"></a>写一篇文章</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo new <span class="hljs-string">&quot;我的第一篇文章&quot;</span><br></code></pre></td></tr></table></figure><p>新文件保存在 <code>source/_posts/</code>。文章开头的 Front Matter 用于设置标题、日期、分类、标签和封面：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">title:</span> <span class="hljs-string">我的第一篇文章</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2026-10-15 10:00:00</span><br><span class="hljs-attr">categories:</span> [<span class="hljs-string">技术手记</span>]<br><span class="hljs-attr">tags:</span> [<span class="hljs-string">Hexo</span>]<br><span class="hljs-attr">description:</span> <span class="hljs-string">用一句话介绍文章内容。</span><br><span class="hljs-attr">index_img:</span> <span class="hljs-string">/img/mountain.jpg</span><br></code></pre></td></tr></table></figure><p>文件名决定文章路径。使用简短的英文文件名，可以获得更稳定、易分享的链接。</p><h2 id="自定义站点"><a href="#自定义站点" class="headerlink" title="自定义站点"></a>自定义站点</h2><p>站点名称、作者与地址在 <code>_config.yml</code> 中；主题菜单、封面、配色等在 <code>_config.fluid.yml</code> 中。首页扩展放在 <code>customization/</code>，样式放在 <code>source/css/journal.css</code>。</p><h2 id="发布到-GitHub-Pages"><a href="#发布到-GitHub-Pages" class="headerlink" title="发布到 GitHub Pages"></a>发布到 GitHub Pages</h2><p>本项目通过 <code>hexo-deployer-git</code> 发布。在仓库 <strong>Settings → Pages → Source</strong> 选择 <strong>Deploy from a branch</strong>，分支选择 <strong>gh-pages</strong>，目录选择 <strong>&#x2F;(root)</strong>。</p><p>预览结束后按 Ctrl+C 停止服务，运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g<br>hexo d<br></code></pre></td></tr></table></figure><p><code>hexo g</code> 生成网页，<code>hexo d</code> 将网页发布到 <code>gh-pages</code>。源码保存在 <code>main</code> 分支，便于备份和继续写作。网站地址是 <code>https://secret3694.github.io/</code>。</p><p>参考：<a href="https://hexo.io/zh-cn/docs/">Hexo 官方文档</a> · <a href="https://github.com/fluid-dev/hexo-theme-fluid">Fluid 官方仓库</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术手记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>GitHub Pages</tag>
+      
+      <tag>Hexo</tag>
+      
+      <tag>Fluid</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Markdown 写作：让表达简单一点</title>
+    <link href="/posts/markdown-writing/"/>
+    <url>/posts/markdown-writing/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-info">            <p>本文是排版示例，可用作日后写作的参考。</p>           </div><p>Markdown 的好处是，用很少的标记就能表达清晰的结构。内容始终是纯文本，迁移和维护也更简单。</p><span id="more"></span><h2 id="先组织结构"><a href="#先组织结构" class="headerlink" title="先组织结构"></a>先组织结构</h2><p>用 <code>##</code> 表示二级标题，用 <code>###</code> 表示三级标题。文章标题已由主题生成，正文通常从二级标题开始。</p><p><strong>加粗</strong>用于强调关键概念，<em>斜体</em>可以表达补充语气，<code>行内代码</code>适合文件名和短命令。</p><h2 id="引用与列表"><a href="#引用与列表" class="headerlink" title="引用与列表"></a>引用与列表</h2><blockquote><p>写作是把模糊的想法，变成清晰的语言。</p></blockquote><p>一个简单的写作过程：</p><ol><li>写出要回答的问题。</li><li>用小标题搭出框架。</li><li>加入例子，再删掉多余的话。</li></ol><h2 id="代码与表格"><a href="#代码与表格" class="headerlink" title="代码与表格"></a>代码与表格</h2><p>代码块注明语言后，主题会自动高亮，并提供复制按钮：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> thoughts = [<span class="hljs-string">&#x27;观察&#x27;</span>, <span class="hljs-string">&#x27;思考&#x27;</span>, <span class="hljs-string">&#x27;记录&#x27;</span>];<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> thought <span class="hljs-keyword">of</span> thoughts) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`今天也要认真<span class="hljs-subst">$&#123;thought&#125;</span>。`</span>);<br>&#125;<br></code></pre></td></tr></table></figure><table><thead><tr><th>元素</th><th>写法</th><th>用途</th></tr></thead><tbody><tr><td>二级标题</td><td><code>## 标题</code></td><td>组织章节</td></tr><tr><td>引用</td><td><code>&gt; 内容</code></td><td>引用或突出观点</td></tr><tr><td>链接</td><td><code>[文字](地址)</code></td><td>连接相关资料</td></tr></tbody></table><h2 id="图片与摘要"><a href="#图片与摘要" class="headerlink" title="图片与摘要"></a>图片与摘要</h2><p>图片放在 <code>source/img/</code>，正文使用 <code>![图片说明](/img/forest.jpg)</code> 引用。为图片添加具体说明，可以帮助读者理解内容。</p><p>文章摘要可以填写在 Front Matter 的 <code>description</code> 中。也可以用 <code>&lt;!-- more --&gt;</code> 分隔摘要和正文。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术手记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Markdown</tag>
+      
+      <tag>写作</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>把知识连起来：我的学习笔记方法</title>
+    <link href="/posts/learning-notes/"/>
+    <url>/posts/learning-notes/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-info">            <p>这是示例学习笔记，展示一种可参考的文章结构。</p>           </div><p>收藏过的资料越来越多，真正能重新用上的却不一定很多。问题往往不在于记得不够多，而在于笔记缺少自己的理解。</p><span id="more"></span><h2 id="从一个问题开始"><a href="#从一个问题开始" class="headerlink" title="从一个问题开始"></a>从一个问题开始</h2><p>学习前先写下：我想弄清楚什么？这会让阅读有方向，也让整理笔记时更容易判断哪些内容值得保留。</p><h2 id="用自己的话解释"><a href="#用自己的话解释" class="headerlink" title="用自己的话解释"></a>用自己的话解释</h2><p>整理完一个概念后，试着不看原文，用几句话讲给一个刚接触它的人听。如果讲不清楚，就标出卡住的地方，回到资料继续查证。</p><h2 id="给笔记建立连接"><a href="#给笔记建立连接" class="headerlink" title="给笔记建立连接"></a>给笔记建立连接</h2><p>一条新知识可以联系到：以前学过的概念、眼前正在做的项目，或一个具体的生活例子。联系越具体，理解通常越牢固。</p><h2 id="留下一小步行动"><a href="#留下一小步行动" class="headerlink" title="留下一小步行动"></a>留下一小步行动</h2><p>每篇学习笔记最后留一个能执行的小任务：运行一个例子、解释一道题，或者写一篇短文。行动能帮助检验理解，而不只是制造“已经学会”的感觉。</p><table><thead><tr><th>记录内容</th><th>自检问题</th></tr></thead><tbody><tr><td>核心问题</td><td>这条笔记在回答什么？</td></tr><tr><td>自己的解释</td><td>我能不用原文讲明白吗？</td></tr><tr><td>关联</td><td>它与哪些知识相连？</td></tr><tr><td>下一步</td><td>我能做一个什么小实验？</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>学习方法</tag>
+      
+      <tag>知识管理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>日常 Git 工作流，从一次清晰的提交开始</title>
+    <link href="/posts/git-everyday/"/>
+    <url>/posts/git-everyday/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-info">            <p>这是可替换的示例文章；执行命令前应先确认当前目录与仓库。</p>           </div><p>维护博客时，Git 可以帮助我们回答两个问题：这次改了什么，以及为什么改。</p><span id="more"></span><h2 id="提交前先看一眼"><a href="#提交前先看一眼" class="headerlink" title="提交前先看一眼"></a>提交前先看一眼</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git status<br>git diff<br></code></pre></td></tr></table></figure><p>确认改动都属于这次更新，再将对应文件加入暂存区。个人信息、访问令牌和本地依赖不应提交；本项目已经在忽略文件中排除了常见的本地内容。</p><h2 id="让一次提交只做一件事"><a href="#让一次提交只做一件事" class="headerlink" title="让一次提交只做一件事"></a>让一次提交只做一件事</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add <span class="hljs-built_in">source</span>/_posts/hello-world.md<br>git commit -m <span class="hljs-string">&quot;docs: update welcome post&quot;</span><br>git push origin main<br></code></pre></td></tr></table></figure><p>一篇文章的更新和一套主题样式的修改，可以分别提交。清楚的提交边界让回顾历史更加容易。</p><h2 id="发布后的检查"><a href="#发布后的检查" class="headerlink" title="发布后的检查"></a>发布后的检查</h2><p>将源码推送到 <code>main</code> 后，运行 <code>hexo g</code> 和 <code>hexo d</code> 发布网站。<code>main</code> 保存写作源码，<code>gh-pages</code> 保存生成的网页。</p><p>发布完成后访问博客，确认文章标题、链接和图片显示正常。仓库 <strong>Actions</strong> 中的 <strong>Check blog</strong> 用于检查源码，GitHub Pages 的系统部署记录可用于查看网页发布进度。</p><p>如果在多个设备上写作，开始前先同步远程更新；遇到冲突时，逐段理解差异再合并。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术手记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Git</tag>
+      
+      <tag>GitHub Pages</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>偶尔慢下来，听一听生活的声音</title>
+    <link href="/posts/slow-weekend/"/>
+    <url>/posts/slow-weekend/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-info">            <p>这是一篇虚构的生活随笔示例，用于展示阅读体验，不代表作者的真实经历。</p>           </div><p>有时候，一天最值得记住的部分，并不在计划表上。它可能是一阵穿过树林的风，也可能是午后落在桌面的光。</p><span id="more"></span><h2 id="把注意力还给眼前"><a href="#把注意力还给眼前" class="headerlink" title="把注意力还给眼前"></a>把注意力还给眼前</h2><p>暂时放下屏幕，走一段不急着到达的路。看看街角的树，听一听远处的鸟鸣，才发现日常里一直有很多细节，只是自己很少停下来。</p><h2 id="给生活留一点空白"><a href="#给生活留一点空白" class="headerlink" title="给生活留一点空白"></a>给生活留一点空白</h2><p>不必把每一分钟都填满。读几页书、整理一下桌面、给自己做一顿简单的饭，这些小事也能让一天变得踏实。</p><blockquote><p>慢下来不是停下脚步，而是重新看见自己正在经过的风景。</p></blockquote><h2 id="记录一个微小的瞬间"><a href="#记录一个微小的瞬间" class="headerlink" title="记录一个微小的瞬间"></a>记录一个微小的瞬间</h2><p>如果今天只能写一句话，就写下一个具体的瞬间吧。具体到一束光、一种声音，或一句让你记住的话。</p><p>时间久了，那些细小的记录，就会拼出属于自己的生活。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>生活碎片</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>随笔</tag>
+      
+      <tag>生活</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
