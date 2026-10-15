@@ -9,8 +9,7 @@
     "start": "hexo server --ip 127.0.0.1 --port 4000",
     "new": "hexo new",
     "check": "node tools/check-site.cjs",
-    "prebuild": "node tools/prepare-assets.cjs",
-    "prestart": "node tools/prepare-assets.cjs"
+    "deploy": "hexo deploy"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -20,6 +19,7 @@
   },
   "dependencies": {
     "hexo": "8.1.2",
+    "hexo-deployer-git": "4.0.0",
     "hexo-generator-archive": "2.0.0",
     "hexo-generator-category": "2.0.0",
     "hexo-generator-feed": "4.0.0",

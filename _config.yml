@@ -76,4 +76,10 @@ marked:
   prependRoot: true
   postAsset: false
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/secret3694/secret3694.github.io.git
+  branch: gh-pages
+  ignore_hidden: false
+server:
+  ip: 127.0.0.1
+  port: 4000

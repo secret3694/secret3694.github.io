@@ -1,10 +1,10 @@
 ---
 title: 用 Hexo 和 Fluid，搭建自己的数字花园
 date: 2026-10-14 10:00:00
-updated: 2026-10-15 09:00:00
+updated: 2026-10-16 09:00:00
 categories: [技术手记]
 tags: [Hexo, Fluid, GitHub Pages]
-description: 从本地预览到自动发布，了解这个博客如何工作。让写作回归 Markdown，把构建和部署交给工具。
+description: 从本地预览到命令发布，了解这个博客如何工作。用 Hexo 生成网页，再用一条命令发布到 GitHub Pages。
 index_img: /img/mountain.jpg
 banner_img: /img/mountain.jpg
 demo: true
@@ -21,8 +21,11 @@ Hexo 负责把 Markdown 文章变成静态网页，Fluid 负责页面呈现，Gi
 先安装 Node.js 24 LTS，在博客根目录打开终端：
 
 ```bash
+npm install -g hexo-cli
 npm ci
-npm start
+hexo clean
+hexo g
+hexo s
 ```
 
 打开终端提示的 `http://127.0.0.1:4000`，即可查看博客。修改文章后刷新页面就能看到变化。
@@ -30,7 +33,7 @@ npm start
 ## 写一篇文章
 
 ```bash
-npm run new -- "我的第一篇文章"
+hexo new "我的第一篇文章"
 ```
 
 新文件保存在 `source/_posts/`。文章开头的 Front Matter 用于设置标题、日期、分类、标签和封面：
@@ -52,8 +55,15 @@ index_img: /img/mountain.jpg
 
 ## 发布到 GitHub Pages
 
-将源码推送到 `secret3694/secret3694.github.io` 的 `main` 分支，在仓库 **Settings → Pages → Source** 选择 **GitHub Actions**。
+本项目通过 `hexo-deployer-git` 发布。在仓库 **Settings → Pages → Source** 选择 **Deploy from a branch**，分支选择 **gh-pages**，目录选择 **/(root)**。
 
-本项目自带的工作流会自动安装依赖、生成网页、检查本地链接并部署。首次上线后，地址是 `https://secret3694.github.io/`。
+预览结束后按 Ctrl+C 停止服务，运行：
+
+```bash
+hexo g
+hexo d
+```
+
+`hexo g` 生成网页，`hexo d` 将网页发布到 `gh-pages`。源码保存在 `main` 分支，便于备份和继续写作。网站地址是 `https://secret3694.github.io/`。
 
 参考：[Hexo 官方文档](https://hexo.io/zh-cn/docs/) · [Fluid 官方仓库](https://github.com/fluid-dev/hexo-theme-fluid)

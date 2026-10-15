@@ -2,6 +2,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+// 直接运行 hexo g / hexo s 时，也准备好主题的本地浏览器资源。
+require('../tools/prepare-assets.cjs');
+
+hexo.extend.generator.register('github-pages-marker', () => ({
+  path: '.nojekyll',
+  data: ''
+}));
+
 // 使用 Fluid 的扩展点，避免修改 node_modules 中的主题源码。
 hexo.extend.filter.register('theme_inject', injects => {
   injects.header.file('default', 'customization/header.ejs');
