@@ -49,6 +49,14 @@ hexo d
 
 第一次发布时，按 GitHub / Git Credential Manager 提示登录 **secret3694**。无需把令牌写进配置文件。PowerShell 若拦截脚本，可使用 Windows 启动器，例如 `hexo.cmd g`，或使用命令提示符。
 
+如果电脑使用网络代理，而 Git 提示无法连接 GitHub，可在代理软件中启用终端代理，或设置当前终端的 `HTTPS_PROXY`。本机现有代理地址为 `http://127.0.0.1:7890`，可在 PowerShell 中执行以下命令后，再运行 `git pull` 或 `hexo d`：
+
+```powershell
+$env:HTTPS_PROXY = "http://127.0.0.1:7890"
+```
+
+这只影响当前终端；换电脑时应使用那台电脑的实际代理地址。GitHub 可直接访问时无需设置。
+
 ## 三、GitHub Pages 设置
 
 本仓库配置为：
