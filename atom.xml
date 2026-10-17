@@ -47,9 +47,9 @@
       <name>secret3694</name>
     </author>
     <category term="技术手记" scheme="https://secret3694.github.io/categories/%E6%8A%80%E6%9C%AF%E6%89%8B%E8%AE%B0/"/>
+    <category term="GitHub Pages" scheme="https://secret3694.github.io/tags/GitHub-Pages/"/>
     <category term="Hexo" scheme="https://secret3694.github.io/tags/Hexo/"/>
     <category term="Fluid" scheme="https://secret3694.github.io/tags/Fluid/"/>
-    <category term="GitHub Pages" scheme="https://secret3694.github.io/tags/GitHub-Pages/"/>
     <id>https://secret3694.github.io/posts/hexo-fluid-guide/</id>
     <link href="https://secret3694.github.io/posts/hexo-fluid-guide/"/>
     <published>2026-10-14T02:00:00.000Z</published>
@@ -90,8 +90,8 @@
       <name>secret3694</name>
     </author>
     <category term="技术手记" scheme="https://secret3694.github.io/categories/%E6%8A%80%E6%9C%AF%E6%89%8B%E8%AE%B0/"/>
-    <category term="GitHub Pages" scheme="https://secret3694.github.io/tags/GitHub-Pages/"/>
     <category term="Git" scheme="https://secret3694.github.io/tags/Git/"/>
+    <category term="GitHub Pages" scheme="https://secret3694.github.io/tags/GitHub-Pages/"/>
     <id>https://secret3694.github.io/posts/git-everyday/</id>
     <link href="https://secret3694.github.io/posts/git-everyday/"/>
     <published>2026-10-08T03:00:00.000Z</published>
