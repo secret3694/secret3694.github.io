@@ -47,6 +47,8 @@
 
   <link  rel="stylesheet" href="/vendor/hint/hint.min.css" />
 
+  <link  rel="stylesheet" href="/vendor/katex/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -395,17 +397,16 @@
 <div class="note note-info">
             <p>这是可替换的示例文章；执行命令前应先确认当前目录与仓库。</p> 
           </div>
-
 <p>维护博客时，Git 可以帮助我们回答两个问题：这次改了什么，以及为什么改。</p>
 <span id="more"></span>
-
-<h2 id="提交前先看一眼"><a href="#提交前先看一眼" class="headerlink" title="提交前先看一眼"></a>提交前先看一眼</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git status<br>git diff<br></code></pre></td></tr></table></figure>
-
+<h2 id="提交前先看一眼">提交前先看一眼</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git status<br>git diff<br></code></pre></td></tr></table></figure>
 <p>确认改动都属于这次更新，再将对应文件加入暂存区。个人信息、访问令牌和本地依赖不应提交；本项目已经在忽略文件中排除了常见的本地内容。</p>
-<h2 id="让一次提交只做一件事"><a href="#让一次提交只做一件事" class="headerlink" title="让一次提交只做一件事"></a>让一次提交只做一件事</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add <span class="hljs-built_in">source</span>/_posts/hello-world.md<br>git commit -m <span class="hljs-string">&quot;docs: update welcome post&quot;</span><br>git push origin main<br></code></pre></td></tr></table></figure>
-
+<h2 id="让一次提交只做一件事">让一次提交只做一件事</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add <span class="hljs-built_in">source</span>/_posts/hello-world.md<br>git commit -m <span class="hljs-string">&quot;docs: update welcome post&quot;</span><br>git push origin main<br></code></pre></td></tr></table></figure>
 <p>一篇文章的更新和一套主题样式的修改，可以分别提交。清楚的提交边界让回顾历史更加容易。</p>
-<h2 id="发布后的检查"><a href="#发布后的检查" class="headerlink" title="发布后的检查"></a>发布后的检查</h2><p>将源码推送到 <code>main</code> 后，运行 <code>hexo g</code> 和 <code>hexo d</code> 发布网站。<code>main</code> 保存写作源码，<code>gh-pages</code> 保存生成的网页。</p>
+<h2 id="发布后的检查">发布后的检查</h2>
+<p>将源码推送到 <code>main</code> 后，运行 <code>hexo g</code> 和 <code>hexo d</code> 发布网站。<code>main</code> 保存写作源码，<code>gh-pages</code> 保存生成的网页。</p>
 <p>发布完成后访问博客，确认文章标题、链接和图片显示正常。仓库 <strong>Actions</strong> 中的 <strong>Check blog</strong> 用于检查源码，GitHub Pages 的系统部署记录可用于查看网页发布进度。</p>
 <p>如果在多个设备上写作，开始前先同步远程更新；遇到冲突时，逐段理解差异再合并。</p>
 
@@ -565,6 +566,11 @@
 
 
   
+
+
+  
+  
+
 
 
 

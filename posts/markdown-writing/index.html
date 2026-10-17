@@ -47,6 +47,8 @@
 
   <link  rel="stylesheet" href="/vendor/hint/hint.min.css" />
 
+  <link  rel="stylesheet" href="/vendor/katex/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -394,13 +396,13 @@
                 <div class="note note-info">
             <p>本文是排版示例，可用作日后写作的参考。</p> 
           </div>
-
 <p>Markdown 的好处是，用很少的标记就能表达清晰的结构。内容始终是纯文本，迁移和维护也更简单。</p>
 <span id="more"></span>
-
-<h2 id="先组织结构"><a href="#先组织结构" class="headerlink" title="先组织结构"></a>先组织结构</h2><p>用 <code>##</code> 表示二级标题，用 <code>###</code> 表示三级标题。文章标题已由主题生成，正文通常从二级标题开始。</p>
+<h2 id="先组织结构">先组织结构</h2>
+<p>用 <code>##</code> 表示二级标题，用 <code>###</code> 表示三级标题。文章标题已由主题生成，正文通常从二级标题开始。</p>
 <p><strong>加粗</strong>用于强调关键概念，<em>斜体</em>可以表达补充语气，<code>行内代码</code>适合文件名和短命令。</p>
-<h2 id="引用与列表"><a href="#引用与列表" class="headerlink" title="引用与列表"></a>引用与列表</h2><blockquote>
+<h2 id="引用与列表">引用与列表</h2>
+<blockquote>
 <p>写作是把模糊的想法，变成清晰的语言。</p>
 </blockquote>
 <p>一个简单的写作过程：</p>
@@ -409,9 +411,9 @@
 <li>用小标题搭出框架。</li>
 <li>加入例子，再删掉多余的话。</li>
 </ol>
-<h2 id="代码与表格"><a href="#代码与表格" class="headerlink" title="代码与表格"></a>代码与表格</h2><p>代码块注明语言后，主题会自动高亮，并提供复制按钮：</p>
+<h2 id="代码与表格">代码与表格</h2>
+<p>代码块注明语言后，主题会自动高亮，并提供复制按钮：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> thoughts = [<span class="hljs-string">&#x27;观察&#x27;</span>, <span class="hljs-string">&#x27;思考&#x27;</span>, <span class="hljs-string">&#x27;记录&#x27;</span>];<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> thought <span class="hljs-keyword">of</span> thoughts) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`今天也要认真<span class="hljs-subst">$&#123;thought&#125;</span>。`</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <table>
 <thead>
 <tr>
@@ -420,7 +422,8 @@
 <th>用途</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>二级标题</td>
 <td><code>## 标题</code></td>
 <td>组织章节</td>
@@ -435,8 +438,10 @@
 <td><code>[文字](地址)</code></td>
 <td>连接相关资料</td>
 </tr>
-</tbody></table>
-<h2 id="图片与摘要"><a href="#图片与摘要" class="headerlink" title="图片与摘要"></a>图片与摘要</h2><p>图片放在 <code>source/img/</code>，正文使用 <code>![图片说明](/img/forest.jpg)</code> 引用。为图片添加具体说明，可以帮助读者理解内容。</p>
+</tbody>
+</table>
+<h2 id="图片与摘要">图片与摘要</h2>
+<p>图片放在 <code>source/img/</code>，正文使用 <code>![图片说明](/img/forest.jpg)</code> 引用。为图片添加具体说明，可以帮助读者理解内容。</p>
 <p>文章摘要可以填写在 Front Matter 的 <code>description</code> 中。也可以用 <code>&lt;!-- more --&gt;</code> 分隔摘要和正文。</p>
 
                 
@@ -595,6 +600,11 @@
 
 
   
+
+
+  
+  
+
 
 
 
