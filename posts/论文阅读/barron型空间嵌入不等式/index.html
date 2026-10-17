@@ -1,0 +1,956 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="light">
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.svg">
+  <link rel="icon" href="/img/favicon.svg">
+  
+    <link rel="canonical" href="https://secret3694.github.io/posts/论文阅读/barron型空间嵌入不等式/"/>
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#193e39">
+  <meta name="author" content="secret3694">
+  <meta name="keywords" content="个人博客,Hexo,Fluid,技术,生活,学习笔记">
+  
+    <meta name="description" content="以 Barron 空间的必要傅里叶正则性为主线，从结论反推证明需求，串联近最优积分表示、单神经元归一化、频谱降维与端点反例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Barron 空间的必要傅里叶正则性：从主结论反推嵌入定理的证明">
+<meta property="og:url" content="https://secret3694.github.io/posts/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/barron%E5%9E%8B%E7%A9%BA%E9%97%B4%E5%B5%8C%E5%85%A5%E4%B8%8D%E7%AD%89%E5%BC%8F/">
+<meta property="og:site_name" content="拾光手记">
+<meta property="og:description" content="以 Barron 空间的必要傅里叶正则性为主线，从结论反推证明需求，串联近最优积分表示、单神经元归一化、频谱降维与端点反例。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-10-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-16T16:00:00.000Z">
+<meta property="article:author" content="secret3694">
+<meta property="article:tag" content="Barron空间">
+<meta property="article:tag" content="ReLU">
+<meta property="article:tag" content="傅里叶分析">
+<meta property="article:tag" content="函数空间">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Barron 空间的必要傅里叶正则性：从主结论反推嵌入定理的证明 - 拾光手记</title>
+
+  <link  rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="/vendor/github-markdown/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/vendor/hint/hint.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="/vendor/icons/fluid-icons.css">
+
+
+
+<link rel="stylesheet" href="/vendor/icons/social-icons.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/journal.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"secret3694.github.io","root":"/","version":"1.9.9","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":false,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":false,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="拾光手记" type="application/atom+xml">
+</head>
+
+<body class="page-post">
+  <a class="skip-link" href="#main-content">跳到正文</a>
+  
+  <header>
+  
+
+<div class="header-inner" style="height: 50vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>拾光手记</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner"
+     style="background: url('/img/hero-lake.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.48)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Barron 空间的必要傅里叶正则性：从主结论反推嵌入定理的证明</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        secret3694
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-10-17 00:00" pubdate>
+          2026年10月17日
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+
+</header>
+  <main id="main-content">
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Barron 空间的必要傅里叶正则性：从主结论反推嵌入定理的证明</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>如果一个函数可以用有限成本的两层神经网络表示，那么它的频谱必须满足什么条件？</p>
+<p>Lei Wu 的论文 <em>Embedding Inequalities for Barron-type Spaces</em> 给出了一个必要条件：Barron 函数具有几乎达到激活函数阶数的傅里叶正则性。这篇笔记从主结论反推证明需求，依次分析积分表示、单神经元归一化、扩展的选择和频谱估计。</p>
+<span id="more"></span>
+
+<h2 id="1-主要结论：Barron-函数必须具有怎样的傅里叶正则性？"><a href="#1-主要结论：Barron-函数必须具有怎样的傅里叶正则性？" class="headerlink" title="1. 主要结论：Barron 函数必须具有怎样的傅里叶正则性？"></a>1. 主要结论：Barron 函数必须具有怎样的傅里叶正则性？</h2><p>设 $\Omega\subset\mathbb R^d$ 为紧集，激活函数为 $\sigma_s(t)&#x3D;t_+^s$，其中 $t_+&#x3D;\max{t,0}$，$s\in\mathbb N^+$ 是正整数。普通 ReLU 对应 $s&#x3D;1$。</p>
+<p>论文证明：对任意 $f\in\mathcal B_s(\Omega)$ 和 $\delta\in(0,1)$，都有</p>
+<p>$$<br>|f|<em>{\mathcal F</em>{s-\delta}(\Omega)}<br>\le \frac{C_s}{\delta}|f|_{\mathcal B_s(\Omega)}.<br>$$</p>
+<p>这里，$\mathcal B_s(\Omega)$ 是由 $\operatorname{ReLU}^s$ 神经元定义的 Barron 空间，$\mathcal F_t(\Omega)$ 是通过加权频谱定义的谱 Barron 空间。常数 $C_s$ 只依赖 $s$，不依赖输入维度 $d$、函数 $f$ 或参数 $\delta$。</p>
+<p>这是一条<strong>必要傅里叶正则性</strong>结论：只要 $f\in\mathcal B_s$，就必须有 $f\in\mathcal F_{s-\delta}$，而且对每个 $\delta\in(0,1)$ 都成立。一般不能直接把阶数提高到端点 $s$。</p>
+<p>普通 ReLU 情形尤其直观：$f\in\mathcal B_1$ 蕴含 $f\in\mathcal F_{1-\delta}$，但不保证 $f\in\mathcal F_1$。</p>
+<p>完整的 Theorem 1.4 还包含已知方向 $\mathcal F_{s+1}(\Omega)\hookrightarrow\mathcal B_s(\Omega)$，它提供属于 Barron 空间的充分条件。符号 $\hookrightarrow$ 表示空间包含关系及相应的范数控制。论文主要新证明的是必要条件 $\mathcal B_s(\Omega)\hookrightarrow\mathcal F_{s-\delta}(\Omega)$。充分条件一侧还允许 $s&#x3D;0$，下面的必要性证明则针对正整数 $s$。</p>
+<h2 id="2-两个下确界定义决定证明的起点"><a href="#2-两个下确界定义决定证明的起点" class="headerlink" title="2. 两个下确界定义决定证明的起点"></a>2. 两个下确界定义决定证明的起点</h2><h3 id="2-1-区域相关的权重"><a href="#2-1-区域相关的权重" class="headerlink" title="2.1 区域相关的权重"></a>2.1 区域相关的权重</h3><p>论文使用 $|v|<em>\Omega&#x3D;\sup</em>{x\in\Omega}|v^\top x|$ 衡量向量 $v$ 相对于输入区域的大小。</p>
+<p>例如，当 $\Omega$ 是欧氏单位球时，$|v|_\Omega&#x3D;|v|<em>2$；当 $\Omega&#x3D;[-1,1]^d$ 时，$|v|</em>\Omega&#x3D;|v|_1$。</p>
+<p>当 $\Omega$ 线性张成整个 $\mathbb R^d$ 时，这确实是范数；对于退化的紧集，它可能只是半范数。后面会单独处理 $|w|_\Omega&#x3D;0$ 的神经元。</p>
+<p>定理中的常数不随维度增长，需要配合这套权重理解。区域 $\Omega$ 的影响仍然保留在范数定义中。</p>
+<h3 id="2-2-谱-Barron-范数：对所有扩展取下确界"><a href="#2-2-谱-Barron-范数：对所有扩展取下确界" class="headerlink" title="2.2 谱 Barron 范数：对所有扩展取下确界"></a>2.2 谱 Barron 范数：对所有扩展取下确界</h3><p>函数 $f$ 只定义在 $\Omega$ 上，傅里叶分析则在整个 $\mathbb R^d$ 上进行。因此，要考虑满足 $F|_\Omega&#x3D;f$ 的全空间扩展 $F$。</p>
+<p>沿用论文的归一化约定，普通傅里叶变换是 $\widehat F(\xi)&#x3D;(2\pi)^{-d}\int_{\mathbb R^d}e^{-i\xi^\top x}F(x),dx$。论文还允许傅里叶变换是有限复测度，记为 $\mu_F$，对应的反演形式为 $F(x)&#x3D;\int_{\mathbb R^d}e^{i\xi^\top x},\mu_F(d\xi)$。</p>
+<p>当频谱具有普通密度时，$\mu_F(d\xi)&#x3D;\widehat F(\xi),d\xi$。对于常数函数等非可积函数，频谱可以是 Dirac 测度；例如，常数函数 $1$ 的频谱是原点处质量为 $1$ 的测度 $\delta_0$。</p>
+<p>为了区分一个具体扩展的成本和域上函数的范数，记 $J_t(F)&#x3D;\int_{\mathbb R^d}(1+|\xi|<em>\Omega)^t,|\mu_F|(d\xi)$，其中 $|\mu_F|$ 是复测度的全变差。如果频谱具有密度，这就是对 $(1+|\xi|</em>\Omega)^t|\widehat F(\xi)|$ 的普通积分。</p>
+<p>谱 Barron 范数的定义为 $|f|<em>{\mathcal F_t(\Omega)}&#x3D;\inf</em>{F|_\Omega&#x3D;f}J_t(F)$。</p>
+<p>因此，<strong>为了证明谱范数的上界，只需要找到一个成本可控的扩展</strong>。对任何选定的扩展 $f_e$，都只有一般性的关系 $|f|_{\mathcal F_t(\Omega)}\le J_t(f_e)$；除非证明它实现下确界，否则不能改成等式。</p>
+<h3 id="2-3-Barron-范数：对所有神经元表示取下确界"><a href="#2-3-Barron-范数：对所有神经元表示取下确界" class="headerlink" title="2.3 Barron 范数：对所有神经元表示取下确界"></a>2.3 Barron 范数：对所有神经元表示取下确界</h3><p>属于 $\mathcal B_s(\Omega)$ 的函数具有积分表示 $f(x)&#x3D;\int a,\sigma_s(w^\top x+b),d\rho(a,w,b)$，这个等式只需对 $x\in\Omega$ 成立。</p>
+<p>其中，$\rho$ 是参数空间 $\mathbb R\times\mathbb R^d\times\mathbb R$ 上的概率测度。可以把它理解为连续地叠加神经元，有限宽网络对应离散叠加的情形。</p>
+<p>记一个表示的成本为 $C(\rho)&#x3D;\int |a|(|w|_\Omega+|b|)^s,d\rho$，则 Barron 范数是所有能够表示 $f$ 的 $\rho$ 的成本下确界。</p>
+<p>因此，对任意 $\varepsilon&gt;0$，可以选取一个具体的表示 $\rho_\varepsilon$，使它仍然准确表示 $f$，并满足 $C(\rho_\varepsilon)\le|f|_{\mathcal B_s(\Omega)}+\varepsilon$。</p>
+<p>这一步只使用下确界的性质，不要求最小成本一定能取到。它是一个存在性选择，也不意味着已经计算出最优网络参数。</p>
+<p>这里两个小参数的作用不同：$\varepsilon$ 用于接近下确界，最后趋于零；$\delta$ 是傅里叶正则性的阶数损失，在证明中保持固定。</p>
+<h2 id="3-从一般函数反推单神经元目标"><a href="#3-从一般函数反推单神经元目标" class="headerlink" title="3. 从一般函数反推单神经元目标"></a>3. 从一般函数反推单神经元目标</h2><p>已经选定 $\rho_\varepsilon$ 后，要用它构造一个全空间扩展。最自然的做法，是先扩展每个神经元，再按原来的表示叠加。</p>
+<p>假设能为每个神经元找到 $H_{w,b}$，使它在 $\Omega$ 上等于 $\sigma_s(w^\top x+b)$，并满足</p>
+<p>$$<br>J_{s-\delta}(H_{w,b})<br>\le \frac{C_s}{\delta}(|w|_\Omega+|b|)^s.<br>$$</p>
+<p>这就是剩余证明需要完成的<strong>单神经元目标</strong>。它的右侧必须与 Barron 表示成本中的参数权重匹配。</p>
+<p>定义 $f_e(x)&#x3D;\int aH_{w,b}(x),d\rho_\varepsilon$。由于每个神经元扩展在 $\Omega$ 上保留原值，叠加后就有 $f_e|_\Omega&#x3D;f$。</p>
+<h3 id="3-1-为什么单神经元估计能够叠加？"><a href="#3-1-为什么单神经元估计能够叠加？" class="headerlink" title="3.1 为什么单神经元估计能够叠加？"></a>3.1 为什么单神经元估计能够叠加？</h3><p>先看有限和 $F&#x3D;\sum_j a_jH_j$。傅里叶变换的线性给出 $\mu_F&#x3D;\sum_j a_j\mu_{H_j}$，全变差的三角不等式给出 $|\mu_F|\le\sum_j|a_j|,|\mu_{H_j}|$。因此，$J_t(F)\le\sum_j|a_j|J_t(H_j)$。</p>
+<p>连续叠加使用相同原理：$J_{s-\delta}(f_e)\le\int |a|J_{s-\delta}(H_{w,b}),d\rho_\varepsilon$。</p>
+<p>这里的频谱积分按测度意义理解。单神经元目标与 $C(\rho_\varepsilon)&lt;\infty$ 一起保证了绝对可积性，因此可以定义积分频谱测度，并进行相应的积分换序。</p>
+<p>一旦代入单神经元估计，右侧就变成 $(C_s&#x2F;\delta)C(\rho_\varepsilon)$，恰好可以由 Barron 范数控制。因此，一般函数的证明已经归结为：怎样构造满足目标估计的 $H_{w,b}$？</p>
+<h2 id="4-用正齐次性归一化方向参数"><a href="#4-用正齐次性归一化方向参数" class="headerlink" title="4. 用正齐次性归一化方向参数"></a>4. 用正齐次性归一化方向参数</h2><p>先考虑 $r&#x3D;|w|<em>\Omega&gt;0$。定义 $\widetilde w&#x3D;w&#x2F;r$、$\widetilde b&#x3D;b&#x2F;r$，则 $|\widetilde w|</em>\Omega&#x3D;1$。</p>
+<p>利用 $\sigma_s(\lambda t)&#x3D;\lambda^s\sigma_s(t)$，可以同时改写函数和参数成本：</p>
+<p>$$<br>\begin{aligned}<br>\sigma_s(w^\top x+b)<br>&amp;&#x3D;r^s\sigma_s(\widetilde w^\top x+\widetilde b),\<br>r^s(1+|\widetilde b|)^s<br>&amp;&#x3D;(r+|b|)^s&#x3D;(|w|_\Omega+|b|)^s.<br>\end{aligned}<br>$$</p>
+<p>所以，只需证明单位方向神经元的频谱成本由 $(C_s&#x2F;\delta)(1+|b|)^s$ 控制，再乘回 $r^s$，就能恢复一般参数下的目标估计。</p>
+<p>如果连同外层系数一起归一化，还需要设置 $\widetilde a&#x3D;ar^s$。这样，神经元所表示的函数和成本都保持不变。不能只缩放 $w$，却保留原来的 $a,b$。</p>
+<p>例如，当 $s&#x3D;1$、$\Omega&#x3D;[-1,1]$ 时，$3(2x+1)<em>+&#x3D;6(x+1&#x2F;2)</em>+$。原来的成本是 $3(2+1)&#x3D;9$，归一化后的成本是 $6(1+1&#x2F;2)&#x3D;9$。</p>
+<h3 id="4-1-零方向的情况"><a href="#4-1-零方向的情况" class="headerlink" title="4.1 零方向的情况"></a>4.1 零方向的情况</h3><p>如果 $|w|_\Omega&#x3D;0$，则 $w^\top x&#x3D;0$ 对所有 $x\in\Omega$ 成立，神经元在区域上就是常数 $\sigma_s(b)$。</p>
+<p>直接选择常数扩展，其频谱为 $\sigma_s(b)\delta_0$，频谱成本为 $\sigma_s(b)\le|b|^s$。这已经满足所需控制，可以单独处理。</p>
+<p>以下只研究 $|w|_\Omega&#x3D;1$ 的情形，并重新用 $w,b$ 表示归一化后的参数。</p>
+<h2 id="5-分析单神经元的谱范数"><a href="#5-分析单神经元的谱范数" class="headerlink" title="5. 分析单神经元的谱范数"></a>5. 分析单神经元的谱范数</h2><h3 id="5-1-只沿神经元依赖的方向截断"><a href="#5-1-只沿神经元依赖的方向截断" class="headerlink" title="5.1 只沿神经元依赖的方向截断"></a>5.1 只沿神经元依赖的方向截断</h3><p>由 $|w|_\Omega&#x3D;1$ 可知，$|w^\top x|\le1$ 对所有 $x\in\Omega$ 成立。</p>
+<p>固定光滑截断函数 $\chi\in C_c^\infty(\mathbb R)$，使 $0\le\chi\le1$，在 $[-1,1]$ 上等于 $1$，在 $[-2,2]$ 外等于零。定义一维函数 $h_b(t)&#x3D;\chi(t)(t+b)<em>+^s$，再定义高维扩展 $H</em>{w,b}(x)&#x3D;h_b(w^\top x)$。</p>
+<p>对区域内的点，截断因子等于 $1$，所以 $H_{w,b}$ 确实保留原神经元的值。</p>
+<p>注意，$h_b$ 在一维上有紧支撑，但 $H_{w,b}$ 沿垂直于 $w$ 的方向保持不变。当 $d\ge2$ 时，它通常不是全空间上的可积函数。这里需要使用测度或分布意义的傅里叶变换。</p>
+<p>接下来的工作有两个部分：先控制一维函数 $h_b$ 的频谱衰减，再把高维扩展的频谱成本化为一维积分。</p>
+<h3 id="5-2-一维衰减：为什么出现-s-1-阶？"><a href="#5-2-一维衰减：为什么出现-s-1-阶？" class="headerlink" title="5.2 一维衰减：为什么出现 $s+1$ 阶？"></a>5.2 一维衰减：为什么出现 $s+1$ 阶？</h3><p>对应原文引理 2.2，需要证明</p>
+<p>$$<br>|\widehat h_b(v)|<br>\le C_s\frac{(1+|b|)^s}{(1+|v|)^{s+1}}.<br>$$</p>
+<p>低频部分直接由可积性控制：$|\widehat h_b(v)|\le(2\pi)^{-1}|h_b|<em>{L^1}\le C_s(1+|b|)^s$。这是因为支撑位于固定区间 $[-2,2]$，区间内 $(t+b)</em>+^s\le(2+|b|)^s$。</p>
+<p>高频部分使用求导和分部积分。原文按折点是否位于截断区域内分别处理；用分布导数可以统一说明它的机制。</p>
+<p>函数 $(t+b)<em>+^s$ 的第 $s$ 阶导数是 $s!\mathbf1</em>{{t&gt;-b}}$，再求一次导数就得到 $s!\delta_{-b}$。因此，乘积求导后，$\nu_b:&#x3D;D^{s+1}h_b$ 可以写成 $g_b(t),dt+s!\chi(-b)\delta_{-b}$。</p>
+<p>其中，$g_b$ 由截断函数的导数与 $(t+b)_+^s$ 的不超过 $s$ 阶导数组成。这些项都支撑在固定区间内，每项都可以用 $C_s(1+|b|)^s$ 控制。因此，$\nu_b$ 是有限测度，并且 $|\nu_b|(\mathbb R)\le C_s(1+|b|)^s$。</p>
+<p>傅里叶变换把求导变成频率乘法：$(iv)^{s+1}\widehat h_b(v)&#x3D;\widehat\nu_b(v)$。另一方面，有限测度的傅里叶变换满足 $|\widehat\nu_b(v)|\le(2\pi)^{-1}|\nu_b|(\mathbb R)$。两者结合，就得到高频控制 $|\widehat h_b(v)|\le C_s(1+|b|)^s|v|^{-(s+1)}$。</p>
+<p>合并高频与低频部分，便得到所需的衰减估计。固定截断函数后，这些常数只依赖 $s$。</p>
+<p>这也解释了整数 $s$ 的作用：证明直接使用了整数次求导以及第 $s$ 阶导数的跳跃。光滑截断控制了无穷远处的增长，但不会自动消除神经元内部的折点。</p>
+<h3 id="5-3-高维降为一维：频谱集中在直线上"><a href="#5-3-高维降为一维：频谱集中在直线上" class="headerlink" title="5.3 高维降为一维：频谱集中在直线上"></a>5.3 高维降为一维：频谱集中在直线上</h3><p>对应原文引理 2.1，关键结构是 $H_{w,b}(x)&#x3D;h_b(w^\top x)$ 只依赖一个标量。</p>
+<p>因为 $s\ge1$，前面的衰减保证了 $\widehat h_b\in L^1(\mathbb R)$。由一维傅里叶反演，$H_{w,b}(x)&#x3D;\int_{\mathbb R}e^{i(vw)^\top x}\widehat h_b(v),dv$。</p>
+<p>所以，高维频谱是把一维频谱沿映射 $v\mapsto vw$ 推到 $\mathbb R^d$ 中得到的测度，支撑在直线 ${vw:v\in\mathbb R}$ 上。这里的“推前”就是保留频谱系数，把原来标记为 $v$ 的频率放到高维频率 $vw$ 处。</p>
+<p>因为 $w\ne0$，这个映射是一一对应到其像上的，不会合并不同频率；全变差也可以沿同一映射计算。再利用 $|vw|_\Omega&#x3D;|v|$，高维频谱成本就化为一维加权积分。</p>
+<p>例如，在二维中，$H(x_1,x_2)&#x3D;h(x_1)$ 的频谱是 $\widehat h(\xi_1),d\xi_1,\delta_0(d\xi_2)$。第二个方向没有空间变化，因此该方向的频率集中在零点。</p>
+<h3 id="5-4-合并估计：-delta-从哪里出现？"><a href="#5-4-合并估计：-delta-从哪里出现？" class="headerlink" title="5.4 合并估计：$\delta$ 从哪里出现？"></a>5.4 合并估计：$\delta$ 从哪里出现？</h3><p>将高维降维结果与一维衰减结合，得到</p>
+<p>$$<br>\begin{aligned}<br>J_{s-\delta}(H_{w,b})<br>&amp;&#x3D;\int_{\mathbb R}(1+|v|)^{s-\delta}|\widehat h_b(v)|,dv\<br>&amp;\le C_s(1+|b|)^s\int_{\mathbb R}(1+|v|)^{-1-\delta},dv\<br>&amp;&#x3D;\frac{2C_s}{\delta}(1+|b|)^s.<br>\end{aligned}<br>$$</p>
+<p>最后一步使用了 $\int_0^\infty(1+v)^{-1-\delta},dv&#x3D;1&#x2F;\delta$。将固定因子吸收到常数中，这就是原文引理 2.4 的单神经元估计。</p>
+<p>随后，利用正齐次性乘回 $r^s$，便恢复一般参数下的权重 $(|w|_\Omega+|b|)^s$。</p>
+<p>定理中的阶数损失和 $1&#x2F;\delta$ 都来自这个一维积分。当 $\delta&#x3D;0$ 时，相应的控制积分发生对数发散，当前计算无法提供端点估计。不过，仅凭一个上界积分发散，还不能断言所有扩展的成本都无限；端点失败需要后面的反例证明。</p>
+<h2 id="6-重新叠加神经元，完成证明"><a href="#6-重新叠加神经元，完成证明" class="headerlink" title="6. 重新叠加神经元，完成证明"></a>6. 重新叠加神经元，完成证明</h2><p>回到之前选定的 $\rho_\varepsilon$。它准确表示 $f$，并且成本不超过 $|f|_{\mathcal B_s(\Omega)}+\varepsilon$。</p>
+<p>为每个神经元选用上述扩展，定义 $f_e(x)&#x3D;\int aH_{w,b}(x),d\rho_\varepsilon$。由于 $f_e|_\Omega&#x3D;f$，现在可以把所有估计串起来：</p>
+<p>$$<br>\begin{aligned}<br>|f|<em>{\mathcal F</em>{s-\delta}(\Omega)}<br>&amp;\le J_{s-\delta}(f_e)\<br>&amp;\le\int |a|J_{s-\delta}(H_{w,b}),d\rho_\varepsilon\<br>&amp;\le\frac{C_s}{\delta}\int |a|(|w|<em>\Omega+|b|)^s,d\rho</em>\varepsilon\<br>&amp;\le\frac{C_s}{\delta}\left(|f|_{\mathcal B_s(\Omega)}+\varepsilon\right).<br>\end{aligned}<br>$$</p>
+<p>四行分别使用：</p>
+<ol>
+<li>谱 Barron 范数对所有扩展取下确界。</li>
+<li>傅里叶变换的线性与全变差的三角不等式。</li>
+<li>单神经元估计。</li>
+<li>接近最优的 Barron 表示。</li>
+</ol>
+<p>由于 $\varepsilon&gt;0$ 任意，令其趋于零，就得到主结论。</p>
+<p>这里不需要证明 $f_e$ 是最优扩展，也不需要证明不同 $\varepsilon$ 对应的扩展收敛。对每个 $\varepsilon$ 都能构造出满足估计的扩展，就足够控制下确界。</p>
+<h2 id="7-端点为什么一般不能达到？"><a href="#7-端点为什么一般不能达到？" class="headerlink" title="7. 端点为什么一般不能达到？"></a>7. 端点为什么一般不能达到？</h2><p>原文命题 1.5 在 $s&#x3D;1$ 时给出反例：取 $\Omega&#x3D;[-1,1]$，令 $f(x)&#x3D;1-|x|$。</p>
+<h3 id="7-1-有限的-Barron-成本"><a href="#7-1-有限的-Barron-成本" class="headerlink" title="7.1 有限的 Barron 成本"></a>7.1 有限的 Barron 成本</h3><p>对于普通 ReLU，区间内有 $f(x)&#x3D;\sigma(1)-\sigma(x)-\sigma(-x)$。这是三个神经元的表示，每项成本为 $1$，因此 $|f|_{\mathcal B_1([-1,1])}\le3$。</p>
+<p>这里的 $3$ 是某个具体表示提供的上界，并不要求它是最小值。</p>
+<h3 id="7-2-排除每一个可能的扩展"><a href="#7-2-排除每一个可能的扩展" class="headerlink" title="7.2 排除每一个可能的扩展"></a>7.2 排除每一个可能的扩展</h3><p>反设存在扩展 $F|<em>{[-1,1]}&#x3D;f$，其频谱满足 $\int</em>{\mathbb R}(1+|\xi|),|\mu_F|(d\xi)&lt;\infty$。</p>
+<p>一阶频谱绝对矩有限，允许在傅里叶反演中求导。控制收敛定理给出 $F’(x)&#x3D;\int i\xi e^{i\xi x},\mu_F(d\xi)$，并保证 $F’$ 连续。</p>
+<p>可是，$F$ 在区间内必须等于 $1-|x|$。后者在零点左侧的导数为 $1$，右侧为 $-1$，因此不能连续可微，产生矛盾。</p>
+<p>所以，这个函数属于 $\mathcal B_1([-1,1])$，却不属于 $\mathcal F_1([-1,1])$。即使每个 $\delta\in(0,1)$ 都允许阶数 $1-\delta$，端点阶数 $1$ 仍可能失败。</p>
+<h3 id="7-3-为什么只检查零扩展不够？"><a href="#7-3-为什么只检查零扩展不够？" class="headerlink" title="7.3 为什么只检查零扩展不够？"></a>7.3 为什么只检查零扩展不够？</h3><p>零扩展 $t(x)&#x3D;(1-|x|)_+$ 的傅里叶变换是 $\widehat t(\xi)&#x3D;(1-\cos\xi)&#x2F;(\pi\xi^2)$，可以据此证明它的一阶加权频谱积分发散。</p>
+<p>但这只排除了零扩展，不能直接说明域上的谱 Barron 范数无限，因为定义还允许其他扩展。上面的连续可微性反证排除了所有可能的扩展，才真正完成证明。</p>
+<p>因此，两个方向的证明有不同的量词要求：证明谱范数有限，只需找到一个好扩展；证明谱范数无限，必须排除每一个扩展。</p>
+<h2 id="8-证明范围与易错点"><a href="#8-证明范围与易错点" class="headerlink" title="8. 证明范围与易错点"></a>8. 证明范围与易错点</h2><table>
+<thead>
+<tr>
+<th>容易混淆的地方</th>
+<th>准确含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>必要条件与充分条件</td>
+<td>本文主线是从 Barron 表示推出傅里叶正则性；反方向需要更高阶的谱条件</td>
+</tr>
+<tr>
+<td>归一化方向参数</td>
+<td>必须同时缩放偏置，并补偿神经元幅度</td>
+</tr>
+<tr>
+<td>一个扩展的成本与域上范数</td>
+<td>前者只是后者的一个候选上界，一般不能直接写等号</td>
+</tr>
+<tr>
+<td>傅里叶变换为测度</td>
+<td>允许 Dirac 点质量及低维频谱，不要求存在普通密度</td>
+</tr>
+<tr>
+<td>近最优的表示</td>
+<td>只保证 Barron 表示成本接近下确界，不保证扩展的频谱成本最优</td>
+</tr>
+<tr>
+<td>$\varepsilon$ 与 $\delta$</td>
+<td>前者用于接近下确界；后者是不能随意取消的阶数损失</td>
+</tr>
+<tr>
+<td>端点反例</td>
+<td>说明一般不能取消阶数损失，不等于证明所有常数或 $1&#x2F;\delta$ 的精确增长率都最优</td>
+</tr>
+</tbody></table>
+<p>关于充分条件一侧，原文引用的结果表明：当 $\Omega$ 有非空内部时，若 $\mathcal F_t(\Omega)\subseteq\mathcal B_1(\Omega)$，则必须有 $t\ge2$。这直接说明普通 ReLU 情形的充分谱阶数 $2$ 不能降低。该引用针对 $\mathcal B_1$，不能仅凭这一句话就断定每一个高阶 $\mathcal B_s$ 的最优性。</p>
+<p>必要性证明的整数条件主要用于一维频谱衰减估计。原文 Remark 2.3 讨论了非整数阶推广的可能性，但不能把它当作该文已经证明的结论。</p>
+<h3 id="8-1-对照原文的依赖关系"><a href="#8-1-对照原文的依赖关系" class="headerlink" title="8.1 对照原文的依赖关系"></a>8.1 对照原文的依赖关系</h3><table>
+<thead>
+<tr>
+<th>原文位置</th>
+<th>提供的结果</th>
+<th>在证明中的作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Definition 1.2</td>
+<td>谱范数是扩展成本的下确界</td>
+<td>允许只构造一个好扩展</td>
+</tr>
+<tr>
+<td>Definition 1.3</td>
+<td>神经元积分表示及其成本</td>
+<td>选择近最优表示 $\rho_\varepsilon$</td>
+</tr>
+<tr>
+<td>Lemma 2.1</td>
+<td>高维频谱积分化为一维积分</td>
+<td>说明维度无关性的来源</td>
+</tr>
+<tr>
+<td>Lemma 2.2</td>
+<td>一维截断神经元的频谱衰减</td>
+<td>提供 $s+1$ 阶衰减控制</td>
+</tr>
+<tr>
+<td>Lemma 2.4</td>
+<td>单神经元的加权频谱估计</td>
+<td>与 Barron 参数成本匹配</td>
+</tr>
+<tr>
+<td>Theorem 1.4 的证明</td>
+<td>积分叠加并令 $\varepsilon\to0$</td>
+<td>得到一般函数的必要正则性</td>
+</tr>
+<tr>
+<td>Proposition 1.5</td>
+<td>三角帽函数反例</td>
+<td>排除 $s&#x3D;1$ 时的端点</td>
+</tr>
+</tbody></table>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>Lei Wu. <em>Embedding Inequalities for Barron-type Spaces</em>. Journal of Machine Learning, 2(4): 259–270, 2023.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.19082">arXiv 页面</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2305.19082">论文 PDF</a></li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.4208/jml.230530">期刊 DOI</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">个人学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/" class="category-chain-item">机器学习理论</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Barron%E7%A9%BA%E9%97%B4/" class="print-no-link">#Barron空间</a>
+      
+        <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="print-no-link">#傅里叶分析</a>
+      
+        <a href="/tags/ReLU/" class="print-no-link">#ReLU</a>
+      
+        <a href="/tags/%E5%87%BD%E6%95%B0%E7%A9%BA%E9%97%B4/" class="print-no-link">#函数空间</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Barron 空间的必要傅里叶正则性：从主结论反推嵌入定理的证明</div>
+      <div>https://secret3694.github.io/posts/论文阅读/barron型空间嵌入不等式/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>secret3694</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年10月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/hello-world/" title="你好，世界。我的博客从这里开始">
+                        <span class="hidden-mobile">你好，世界。我的博客从这里开始</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+    
+    
+      <a id="scroll-top-button" aria-label="返回顶部" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+    
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </main>
+  <footer><div class="journal-container journal-footer"><div><a class="footer-brand" href="/">拾光手记<span> A SMALL PLACE FOR BIG IDEAS.</span></a><p>© 2026 secret3694 · 保持热爱，奔赴山海。</p></div><div class="footer-right"><p>用 <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener noreferrer">Hexo</a> 记录 · 由 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener noreferrer">Fluid</a> 呈现</p><a href="/atom.xml">RSS 订阅 ↗</a></div></div>
+</footer>
+  
+
+<script  src="/vendor/jquery/jquery.min.js" ></script>
+<script  src="/vendor/bootstrap/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('/vendor/tocbot/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=/vendor/clipboard/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('/vendor/anchor/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/journal.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+  
+  <noscript><div class="noscript-warning">文章可正常阅读；搜索、筛选和主题切换需要启用 JavaScript。</div></noscript>
+</body>
+</html>
